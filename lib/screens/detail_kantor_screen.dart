@@ -23,7 +23,11 @@ class _DetailKantorScreenState extends State<DetailKantorScreen> {
 
     if (unit == null) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Detail Kantor')),
+        appBar: AppBar(
+          backgroundColor: AppColors.navy,
+          foregroundColor: Colors.white,
+          title: const Text('Detail Kantor'),
+        ),
         body: const Center(child: Text('Kantor tidak ditemukan')),
       );
     }

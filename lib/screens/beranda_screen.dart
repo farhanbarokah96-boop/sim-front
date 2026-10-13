@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import '../data/auth_repository.dart';
+import '../data/excel_export.dart';
 import '../data/excel_import.dart';
 import '../data/repository.dart';
 import '../models.dart';
@@ -24,6 +25,7 @@ class _BerandaScreenState extends State<BerandaScreen> {
   final _repo = RekapRepository();
   final _authRepo = AuthRepository();
   bool _isImporting = false;
+  bool _isExporting = false;
 
   void _refreshUI() {
     setState(() {});
@@ -132,6 +134,18 @@ class _BerandaScreenState extends State<BerandaScreen> {
     }
   }
 
+  Future<void> _handleExportExcel() async {
+    setState(() {
+      _isExporting = true;
+    });
+    await ExcelExportService.exportAndSaveExcel(context);
+    if (mounted) {
+      setState(() {
+        _isExporting = false;
+      });
+    }
+  }
+
   void _showLaporanDialog(BuildContext context) {
     final ringkasan = _repo.ringkasanRegion();
     final totalKc = _repo.semuaKc.length;
@@ -164,6 +178,20 @@ class _BerandaScreenState extends State<BerandaScreen> {
           ],
         ),
         actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              _handleExportExcel();
+            },
+            child: const Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.file_download, size: 16),
+                SizedBox(width: 4),
+                Text('Ekspor Excel'),
+              ],
+            ),
+          ),
           TextButton(onPressed: () => Navigator.pop(context), child: const Text('Tutup')),
         ],
       ),
@@ -293,10 +321,19 @@ class _BerandaScreenState extends State<BerandaScreen> {
             children: [
               const Text('Pemenuhan FL Region 04',
                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: AppColors.navyPale)),
-              IconButton(
-                icon: const Icon(Icons.logout, color: AppColors.navyPale, size: 20),
-                tooltip: 'Keluar Akun',
-                onPressed: _handleLogout,
+              Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.assessment_outlined, color: AppColors.navyPale, size: 20),
+                    tooltip: 'Laporan Pemenuhan',
+                    onPressed: () => _showLaporanDialog(context),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.logout, color: AppColors.navyPale, size: 20),
+                    tooltip: 'Keluar Akun',
+                    onPressed: _handleLogout,
+                  ),
+                ],
               ),
             ],
           ),
@@ -353,6 +390,18 @@ class _BerandaScreenState extends State<BerandaScreen> {
                     SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2)),
                     SizedBox(width: 10),
                     Text('Memproses file Excel...', style: TextStyle(fontSize: 12, color: AppColors.navy)),
+                  ],
+                ),
+              ),
+            if (_isExporting)
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2)),
+                    SizedBox(width: 10),
+                    Text('Mengekspor file Excel...', style: TextStyle(fontSize: 12, color: AppColors.primary)),
                   ],
                 ),
               ),
@@ -418,9 +467,9 @@ class _BerandaScreenState extends State<BerandaScreen> {
                   onTap: _handleImportExcel,
                 ),
                 MenuIconButton(
-                  icon: Icons.ios_share,
-                  label: 'Laporan',
-                  onTap: () => _showLaporanDialog(context),
+                  icon: Icons.file_download,
+                  label: 'Ekspor Excel',
+                  onTap: _handleExportExcel,
                 ),
                 MenuIconButton(
                   icon: Icons.timer_outlined,

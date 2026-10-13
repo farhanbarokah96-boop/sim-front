@@ -25,7 +25,11 @@ class DetailKcScreen extends StatelessWidget {
 
     if (kc == null) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Detail KC')),
+        appBar: AppBar(
+          backgroundColor: AppColors.navy,
+          foregroundColor: Colors.white,
+          title: const Text('Detail KC'),
+        ),
         body: const Center(child: Text('Kantor Cabang tidak ditemukan')),
       );
     }

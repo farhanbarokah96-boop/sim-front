@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../data/auth_repository.dart';
 import '../theme.dart';
 import '../widgets/bri_logo.dart';
-import 'beranda_screen.dart';
 import 'login_screen.dart';
+import 'main_navigation_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -55,7 +55,7 @@ class _SplashScreenState extends State<SplashScreen>
     if (!mounted) return;
 
     final isLoggedIn = _authRepo.isLoggedIn;
-    final targetScreen = isLoggedIn ? const BerandaScreen() : const LoginScreen();
+    final targetScreen = isLoggedIn ? const MainNavigationScreen() : const LoginScreen();
 
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(

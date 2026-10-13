@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 /// Palet warna utama aplikasi, diambil dari gaya header biru tua
 /// pada referensi layout yang diberikan pengguna.
 class AppColors {
+  static const primary = Color(0xFF0C447C);
   static const navy = Color(0xFF0C447C);
   static const navyLight = Color(0xFF378ADD);
   static const navyPale = Color(0xFFE6F1FB);
@@ -15,6 +16,7 @@ class AppColors {
   static const secondaryBg = Color(0xFFF1F5F9);
   static const surface = Color(0xFFF7F7F5);
   static const card = Colors.white;
+  static const textPrimary = Color(0xFF1D1D1D);
   static const textSecondary = Color(0xFF5F5E5A);
   static const textMuted = Color(0xFF888780);
 }
@@ -32,7 +34,7 @@ ThemeData buildAppTheme() {
 
   return base.copyWith(
     appBarTheme: const AppBarTheme(
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppColors.navy,
       elevation: 0,
       foregroundColor: Colors.white,
     ),

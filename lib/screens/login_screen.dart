@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../data/auth_repository.dart';
 import '../theme.dart';
 import '../widgets/bri_logo.dart';
-import 'beranda_screen.dart';
+import 'main_navigation_screen.dart';
 import 'register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (mounted) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => const BerandaScreen()),
+          MaterialPageRoute(builder: (_) => const MainNavigationScreen()),
         );
       }
     } else {

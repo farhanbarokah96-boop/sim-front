@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../data/auth_repository.dart';
 import '../data/repository.dart';
 import '../theme.dart';
-import 'beranda_screen.dart';
+import 'main_navigation_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -98,7 +98,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Navigator.pop(context); // Close dialog
                   Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (_) => const BerandaScreen()),
+                    MaterialPageRoute(builder: (_) => const MainNavigationScreen()),
                     (route) => false,
                   );
                 },
